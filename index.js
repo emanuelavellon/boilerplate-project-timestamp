@@ -24,6 +24,7 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+//freeCodeCamp challenge
 app.get('/api/:time', function(req, res){
 
   let date;
@@ -39,6 +40,14 @@ app.get('/api/:time', function(req, res){
     date=new Date(dateToNumber);
   }else{
     date=new Date(dateParam);
+  }
+
+  if(isNaN(date.getTime())){
+    res.json({
+      error: "Invalid Date",
+      unix: "",
+      utc: ""
+    })
   }
 
  const unixDate=date.getTime();
