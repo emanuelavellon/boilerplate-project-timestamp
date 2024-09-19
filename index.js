@@ -25,19 +25,19 @@ app.get("/api/hello", function (req, res) {
 });
 
 //freeCodeCamp challenge
-app.get('/api/:time', function(req, res){
+app.get('/api/:time?', function(req, res){
 
   let date;
   const dateParam=req.params.time;
   
-  if(!dateParam) {
-    const currentTime=new DateTime();
+  if(dateParam==="") {
+    const currentTime=new Date();
     createTimeToResponse(currentTime, res);
   }
 
   const _tryParseNumber=Number(dateParam);
   const isNumberParam=!isNaN(_tryParseNumber);
-  console.log(isNumberParam);
+  
 
   if(isNumberParam){
     const dateToNumber=Number(dateParam);
