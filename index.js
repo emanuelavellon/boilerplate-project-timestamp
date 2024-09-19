@@ -29,7 +29,11 @@ app.get('/api/:time', function(req, res){
 
   let date;
   const dateParam=req.params.time;
-  if(!dateParam) return;
+  
+  if(!dateParam) {
+    const currentTime=new DateTime();
+    createTimeToResponse(currentTime, res);
+  }
 
   const _tryParseNumber=Number(dateParam);
   const isNumberParam=!isNaN(_tryParseNumber);
@@ -50,17 +54,22 @@ app.get('/api/:time', function(req, res){
     })
   }
 
- const unixDate=date.getTime();
- const utcDate=date.toUTCString();
-
- if(!date || !unixDate) return;
-
- res.json({
-  unix: unixDate,
-  utc: utcDate
- });
+ createTimeToResponse(date, res);
 
 });
+
+function createTimeToResponse(date, res){
+  const unixDate=date.getTime();
+  const utcDate=date.toUTCString();
+ 
+  if(!date || !unixDate) return;
+ 
+  res.json({
+   unix: unixDate,
+   utc: utcDate
+  });
+}
+
 
 
 // Listen on port set in environment variable or default to 3000
