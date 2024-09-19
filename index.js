@@ -30,9 +30,10 @@ app.get('/api/:time?', function(req, res){
   let date;
   const dateParam=req.params.time;
   
-  if(dateParam==="") {
+  if(!dateParam) {
     const currentTime=new Date();
     createTimeToResponse(currentTime, res);
+    return;
   }
 
   const _tryParseNumber=Number(dateParam);
